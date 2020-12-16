@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ITService</title>
+    <base href="/" />
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
+    <link href="css/app.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</head>
+
+
+<body>
+    <app>Loading...</app>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassEMbly.js"></script>
+
+
+
+
+
+    <!--Data Account-->
+    <script>
+        function TestDataTablesAdd(table, Url) {
+
+            $(document).ready(function () {
+                $(table).DataTable({
+                    "bAutoWidth": false,
+                    "ajax": {
+                        "url": Url,
+                        "type": "GET",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        { 'data': "emP_ID" },
+                        { 'data': "emP_NAMETH" },
+                        { 'data': "emP_LASTNAMETH" },
+                        { 'data': "emP_MAIL" },
+                        { 'data': "emP_DEPT" },
+                        {
+                            'data': 'activate',
+                            'orderable': false,
+                            'render': function (ID, type, data, obj) {
+                                if (data.activate != "1") {
+                                    return '<input id="toggle-demo" class="my_switch" type="checkbox" data-toggle="toggle" data-on="เปิดใช้งาน" data-off="ปิดใช้งาน" data-onstyle="success" data-offstyle="danger" onchange="ActivateStatus(' + data.activate + ');" >';
+
+                                }
+                                else {
+                                    return '<input id="toggle-demo" class="my_switch" type="checkbox" data-toggle="toggle" data-on="เปิดใช้งาน" data-off="ปิดใช้งาน" data-onstyle="success" data-offstyle="danger" onchange="ActivateStatus(' + data.activate + ');"   checked >';
+
+                                }
+                            }
+                        }
+
+                    ],
+                    "fnDrawCallback": function () {
+                        $('.my_switch').bootstrapToggle();
+
+                    }
+                });
+
+            });
+        }
+
+        function aaa(id) {
+            $(document).ready(function () {
+                alert(id);
+            });
+        }
+
+        function TestDataTablesRemove(table) {
+            $(document).ready(function () {
+                $(table).DataTable().destroy();
+                var elEM = document.querySelector(table + '_wrapper');
+                elEM.parentNode.removeChild(elEM);
+            });
+        }
+
+        function ActivateStatus(id) {
+
+            var UserAccount = new Object();
+            UserAccount.EMP_ID = id;
+            UserAccount.ACTIVATE = "1";
+
+            if (id == "1") {
+                $.ajax({
+                    url: 'api/UserAccount/ActiveStatus',
+                    type: 'PUT',
+                    data: JSON.stringify(UserAccount),                       
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: 'http://localhost:4000/api/UserAccount/ActiveStatus',
+                    type: 'PUT',
+                    data: {
+                        emP_ID: id,
+                        activate: "1"
+                    },
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+
+            //onchange = "ActivateStatus(' + data.emP_ID + ') "
+            //var postData = {
+            //    'EMP_ID': id,
+            //    'ACTIVATE': checkboxChecked,
+
+            //};
+
+            //console.log(postData);
+            //$.ajax({
+            //    url: '',
+            //    type: 'PUT',
+            //    data: { postData },
+            //    dataType: "json",
+            //    async: true,
+            //    success: function (data) {
+            //        console.log(data);
+            //    }
+            //});
+
+        }
+
+
+
+
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+</body>
+
+</html>

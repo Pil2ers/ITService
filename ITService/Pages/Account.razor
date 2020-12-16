@@ -1,0 +1,42 @@
+﻿@page  "/account"
+@inject HttpClient Http
+@using System.Net.Http
+@using ITServiceModel
+@using System.Net.Http.Json;
+@inject IJSRuntime JSRuntime
+@implements IDisposable
+
+
+
+    <table id="example" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>รหัสพนักงาน</th>
+                <th>ชื่อ</th>
+                <th>นามสกุล</th>
+                <th>อีเมลล์</th>
+                <th>ฝ่าย/ส่วนงาน</th>
+                <th>สถานะ</th>
+               
+            </tr>
+        </thead>
+    </table>
+
+
+@code {
+
+    private string UrlGet = "http://localhost:4000/api/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JSRuntime.InvokeAsync<object>("TestDataTablesAdd", "#example", UrlGet + "UserAccount/GetUserAccount");
+
+
+    }
+    public void Dispose()
+    {
+        JSRuntime.InvokeAsync<object>("TestDataTablesRemove", "#example");
+    }
+
+}
+
