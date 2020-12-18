@@ -61,5 +61,12 @@ namespace ITServiceAPI.Controllers
             }
             return NoContent();
         }
+        [HttpPost]
+        [Route("GetUserAccountId")]
+        public async Task<ActionResult> GetUserAccountId(UserAccount userAccount)
+        {
+            
+            return Ok(await _userAccount.GetUserAccountId(userAccount));
+        }
     }
 }

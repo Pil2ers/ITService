@@ -9,6 +9,7 @@ namespace ITServiceAPI.Services.Interface
     {
         Task ActiveStatus(UserAccount userAccount);
         Task<IEnumerable<UserAccount>> GetAllUserAccount();
+        Task <List<UserAccount>>GetUserAccountId(UserAccount userAccount);
         bool UserAccountExists(string id);
     }
 }

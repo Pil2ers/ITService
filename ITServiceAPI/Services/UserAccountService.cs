@@ -21,10 +21,13 @@ namespace ITServiceAPI.Services.Interface
             ad.ACTIVATE = userAccount.ACTIVATE;
             await _iTServiceContext.SaveChangesAsync();
         }
-
         public async Task <IEnumerable<UserAccount>> GetAllUserAccount()
         {
               return await Task.Run(() => _iTServiceContext.UserAccount.ToListAsync());
+        }
+        public async Task<List<UserAccount>> GetUserAccountId(UserAccount userAccount)
+        {
+            return await Task.Run(() => _iTServiceContext.UserAccount.Where(p => p.EMP_ID == userAccount.EMP_ID).ToListAsync());
         }
         public bool UserAccountExists(string id)
         {
