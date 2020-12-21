@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\Script\Application.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IServiceModel\ITServiceModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Image\IconBrand\" />
   </ItemGroup>
 
 </Project>

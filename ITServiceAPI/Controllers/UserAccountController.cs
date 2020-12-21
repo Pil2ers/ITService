@@ -1,4 +1,5 @@
-﻿using ITServiceAPI.Helpers;
+﻿using AutoMapper;
+using ITServiceAPI.Helpers;
 using ITServiceAPI.Services;
 using ITServiceAPI.Services.Interface;
 using ITServiceModel;
@@ -57,10 +58,40 @@ namespace ITServiceAPI.Controllers
                 {
                     throw;
                 }
+            }
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("UpdateDetialUserAccount")]
+        public async Task<ActionResult> UpdateDetialUserAccount(UserAccount userAccount)
+        {
+            if(userAccount == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await _userAccount.UpdatedetailUserAccount(userAccount);
+
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_userAccount.UserAccountExists(userAccount.EMP_ID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
 
             }
             return NoContent();
         }
+
+
+
         [HttpPost]
         [Route("GetUserAccountId")]
         public async Task<ActionResult> GetUserAccountId(UserAccount userAccount)

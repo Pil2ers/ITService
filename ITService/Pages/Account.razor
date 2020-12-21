@@ -65,7 +65,8 @@
                                                     <div class="mt-3">
                                                         <div class="text-center">
                                                             <div class="row">
-                                                                <label><h4>รหัสพนักงาน  : </h4></label><label id="emP_ID"></label>
+                                                                <label><h4>รหัสพนักงาน  : </h4></label>
+                                                                <label id="emP_ID"></label>
                                                                 <div class="col-2">
                                                                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
                                                                 </div>
@@ -251,7 +252,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                <button class="btn btn-lg btn-success" onclick="UpdatedetailUserAccount()"  type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                 <button class="btn btn-lg btn-danger " data-dismiss="modal" onclick="CloseElement()" type="reset"><i class="glyphicon glyphicon-repeat"></i>Close</button>
             </div>
         </div>
@@ -269,13 +270,12 @@
     {
         await JSRuntime.InvokeAsync<object>("TestDataTablesAdd", "#example", UrlGet + "UserAccount/GetUserAccount");
 
-
     }
 
     public void Dispose()
     {
         JSRuntime.InvokeAsync<object>("TestDataTablesRemove", "#example");
     }
-
+   
 }
 

@@ -16,7 +16,7 @@ namespace ITServiceAPI.Helpers
         }
 
         public virtual DbSet<UserAccount> UserAccount { get; set; }
-
+        public virtual DbSet<Equipment> Equipment { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,7 +36,13 @@ namespace ITServiceAPI.Helpers
                 entity.HasKey(e => e.EMP_ID);
 
             });
-            
+
+            modelBuilder.Entity<Equipment>(entity =>
+            {
+                entity.HasKey(e => e.EQUIPMENT_RECORD);
+
+            });
+
 
             OnModelCreatingPartial(modelBuilder);
         }
